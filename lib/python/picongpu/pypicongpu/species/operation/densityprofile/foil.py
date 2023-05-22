@@ -3,8 +3,8 @@ from .densityprofile import DensityProfile
 from .... import util
 from typeguard import typechecked
 
-from plasmas.preplasma import exponential_pre_plasma
-from plasmas.postplasma import exponential_post_plasma
+from plasmas import pre_foil_plasma
+from plasmas import post_foil_plasma
 
 
 @typechecked
@@ -20,10 +20,10 @@ class Foil(DensityProfile):
     y_value_front_foil_si = util.build_typesafe_property(float)
     thickness_foil_si = util.build_typesafe_property(float)
 
-    exponential_pre_plasma.prePlasmaLength = util.build_typesafe_property(float)
-    exponential_pre_plasma.prePlasmaCutoff = util.build_typesafe_property(float)
-    exponential_post_plasma.postPlasmaLength = util.build_typesafe_property(float)
-    exponential_post_plasma.postPlasmaCutoff = util.build_typesafe_property(float)
+    pre_foil_plasma.PlasmaLength = util.build_typesafe_property(float)
+    pre_foil_plasma.PlasmaCutoff = util.build_typesafe_property(float)
+    post_foil_plasma.PlasmaLength = util.build_typesafe_property(float)
+    post_foil_plasma.PlasmaCutoff = util.build_typesafe_property(float)
 
 
     def __init__(self):
@@ -37,13 +37,13 @@ class Foil(DensityProfile):
             raise ValueError("y-value_front must be > or = 0")
         if self.thickness_foil_si <= 0:
             raise ValueError("thickness must be > 0")
-        if self.exponential_pre_plasma.prePlasmaLength < 0:
+        if self.pre_foil_plasma.PlasmaLength < 0:
             raise ValueError("prePlasmaLength must be > or = 0")
-        if self.exponential_pre_plasma.prePlasmaCutoff < 0:
+        if self.pre_foil_plasma.PlasmaCutoff < 0:
             raise ValueError("prePlasmaCutoff must be > or = 0")
-        if self.exponential_post_plasma.postPlasmaLength < 0:
+        if self.post_foil_plasma.PlasmaLength < 0:
             raise ValueError("postPlasmaLength must be > or = 0")
-        if self.exponentiexponential_post_plasma.postPlasmaCutoff < 0:
+        if self.post_foil_plasma.PlasmaCutoff < 0:
             raise ValueError("postPlasmaCutoff must be > or = 0")
 
     def _get_serialized(self) -> dict:
@@ -53,8 +53,8 @@ class Foil(DensityProfile):
             "density_si": self.density_si,
             "y_value_front_foil_si": self.y_value_front_foil_si,
             "thickness_foil_si": self.thickness_foil_si,
-            "prePlasmaLength": self.exponential_pre_plasma.prePlasmaLength,
-            "prePlasmaCutoff": self.exponential_pre_plasma.prePlasmaCutoff,
-            "postPlasmaLength": self.exponential_post_plasma.postPlasmaLength,
-            "postPlasmaCutoff": self.exponential_post_plasma.postPlasmaCutoff
+            "prePlasmaLength": self.pre_foil_plasma.PlasmaLength,
+            "prePlasmaCutoff": self.pre_foil_plasma.PlasmaCutoff,
+            "postPlasmaLength": self.post_foil_plasma.PlasmaLength,
+            "postPlasmaCutoff": self.post_foil_plasma.PlasmaCutoff
         }
